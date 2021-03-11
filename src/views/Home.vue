@@ -1,13 +1,20 @@
 <template>
   <div class="home">
     Hello world
+    <br/>
+    {{ counter }}
+    <br/>
+    {{ theCounter }}
+    <br>
+    {{count}}
+
     <HelloWorld msg="Hello Vue 3.0 + Vite" />
     <el-row>
-      <el-button>默认按钮</el-button>
-      <el-button type="primary">主要按钮</el-button>
-      <el-button type="success">成功按钮</el-button>
-      <el-button type="info">信息按钮</el-button>
-      <el-button type="warning">警告按钮</el-button>
+      <el-button @click="doClick">默认按钮</el-button>
+      <el-button type="primary" @click="doInc">主要按钮</el-button>
+      <el-button type="success" @click="doDec">成功按钮</el-button>
+      <el-button type="info" @click="doSet">信息按钮</el-button>
+      <el-button type="warning" @click="doReset">警告按钮</el-button>
       <el-button type="danger">危险按钮</el-button>
     </el-row>
 
@@ -41,13 +48,59 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue'
+import { computed, defineComponent, ref, watch } from 'vue'
 import HelloWorld from '../components/HelloWorld.vue'
+import useCount from '@/views/UseCount'
 
 export default defineComponent({
   name: 'Home',
   components: {
     HelloWorld
+  },
+  setup() {
+    console.log('Hello world')
+    const { current: count, inc, dec, set, reset } = useCount(1, {
+      min: 1, max: 100
+    })
+    const counter = ref(0)
+    const theCounter = computed(() => counter.value * 2)
+
+    watch(counter, (newValue: number, oldValue: number) => {
+      console.log('NewValue: ' + newValue + ', OldValue: ' + oldValue)
+    })
+
+    console.log(counter)
+    console.log(counter.value)
+    console.log(theCounter.value)
+
+    counter.value++
+    console.log(counter.value)
+    console.log(theCounter.value)
+
+    return {
+      counter,
+      theCounter,
+      count,
+      inc, dec, set, reset
+    }
+  },
+  methods: {
+    doClick() {
+      console.log(this.counter)
+      this.counter++
+    },
+    doInc() {
+      this.inc(10)
+    },
+    doDec() {
+      this.dec(10)
+    },
+    doSet() {
+      this.set(99)
+    },
+    doReset() {
+      this.reset()
+    }
   }
 })
 </script>

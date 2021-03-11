@@ -4,13 +4,26 @@
  * @date 2021-03-11 17:18
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import Layout from '@/layout/index.vue'
 import Home from '@/views/home.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: Home,
+        meta: {
+          title: 'Dashboard',
+          icon: 'dashboard',
+          affix: true
+        }
+      }
+    ]
   }
 ]
 

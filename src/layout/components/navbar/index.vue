@@ -1,14 +1,17 @@
 <template>
-  <router-view />
+  <div class="navbar">
+
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'App'
+  name: 'Navbar'
 })
 </script>
 
-<style>
+<style scoped>
+
 </style>
