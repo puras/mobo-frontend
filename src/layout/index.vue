@@ -3,16 +3,18 @@
 <!--    <div class="drawer-bg" />-->
     <sidebar class="sidebar-container" />
     <div class="main-container">
-      <div>
+      <div class="fixed-header">
         <navbar />
       </div>
       <app-main />
+      <right-panel></right-panel>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import RightPanel from '@/components/right-panel/index.vue'
 import { AppMain, Sidebar, Navbar } from './components'
 
 export default defineComponent({
@@ -20,7 +22,8 @@ export default defineComponent({
   components: {
     AppMain,
     Sidebar,
-    Navbar
+    Navbar,
+    RightPanel
   }
 })
 </script>
