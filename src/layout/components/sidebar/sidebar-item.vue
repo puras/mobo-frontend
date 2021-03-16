@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <h1>Welcome to MoBo Frontend</h1>
+  <div>
+
   </div>
 </template>
 
@@ -8,11 +8,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Home',
-  components: {
-  },
-  setup() {
-  }
+  name: 'SidebarItem'
 })
 </script>
 
