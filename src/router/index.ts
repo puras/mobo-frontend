@@ -32,4 +32,12 @@ const router = createRouter({
   routes
 })
 
+
+router.beforeEach((to, from, next) => {
+  // @ts-ignore
+  window.document.title = import.meta.env.VITE_APP_TITLE + (to.meta.title === undefined ? '' :  '-' + to.meta.title)
+
+  next()
+})
+
 export default router
