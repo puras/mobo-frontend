@@ -4,9 +4,9 @@
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     <div class="right-menu">
       <template v-if="device !== 'mobile'">
-        <header-search id="header-search" class="right-menu-item" />
+        <header-search id="header_search" class="right-menu-item" />
         <error-log class="errlog-container right-menu-item hover-effect" />
-        <screenfull id="screenfull" class="right-menu-item hover-effect" />
+        <screen-full id="screen_full" class="right-menu-item hover-effect" />
 <!--        <el-tooltip content="Global Size" effect="dark" placement="bottom">-->
 <!--          <div>Hello hello</div>-->
 <!--          <div>Hello hello</div>-->
@@ -38,8 +38,11 @@ import { defineComponent, ref } from 'vue'
 import Hamburger from '@/components/hamburger/index.vue'
 import Breadcrumb from '@/components/breadcrumb/index.vue'
 import HeaderSearch from '@/components/header-search/index.vue'
-import Screenfull from '@/components/screenfull/index.vue'
+import ScreenFull from '@/components/screenfull/index.vue'
 import ErrorLog from '@/components/error-log/index.vue'
+import { useStore } from 'vuex'
+import { key } from '@/store'
+// import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'Navbar',
@@ -47,12 +50,15 @@ export default defineComponent({
     Hamburger,
     Breadcrumb,
     HeaderSearch,
-    Screenfull,
+    ScreenFull,
     ErrorLog
   },
   setup() {
     const showSideBar = ref(false)
     const device = ref('pc')
+
+    const store = useStore(key)
+    console.log(store.state.test)
 
     const toggleSideBar = () => {
       showSideBar.value = !showSideBar.value

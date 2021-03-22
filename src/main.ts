@@ -4,6 +4,13 @@ import 'element-plus/lib/theme-chalk/index.css'
 import App from './App.vue'
 import './assets/less/index.less'
 import router from './router'
-import store from './store'
+import store, { key } from './store'
 
-createApp(App).use(ElementPlus).use(store).use(router).mount('#app')
+import SvgIcon from '@/components/svg-icon/index.vue'
+
+createApp(App)
+  .component('svg-icon', SvgIcon)
+  .use(ElementPlus)
+  .use(store, key)
+  .use(router)
+  .mount('#app')

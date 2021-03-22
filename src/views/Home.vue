@@ -1,6 +1,7 @@
 <template>
   <div class="home">
     <h1>Welcome to MoBo Frontend</h1>
+    <svg-icon icon-class="dashboard"></svg-icon>
   </div>
 </template>
 

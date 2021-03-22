@@ -5,17 +5,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
-  name: 'Screenfull',
+  name: 'ScreenFull',
   setup() {
     const click = () => {
       console.log('Screenfull click')
     }
+    const isFullscreen = ref(false)
 
     return {
-      click
+      click,
+      isFullscreen
     }
   }
 })
