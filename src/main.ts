@@ -5,7 +5,6 @@ import App from './App.vue'
 import './assets/less/index.less'
 import router from './router'
 import store, { key } from './store'
-
 import SvgIcon from '@/components/svg-icon/index.vue'
 
 createApp(App)

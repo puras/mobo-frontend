@@ -1,5 +1,5 @@
 <template>
-  <div class="app-wrapper">
+  <div :class="classObj" class="app-wrapper">
 <!--    <div class="drawer-bg" />-->
     <sidebar class="sidebar-container" />
     <div class="main-container">
@@ -13,9 +13,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
 import RightPanel from '@/components/right-panel/index.vue'
 import { AppMain, Sidebar, Navbar } from './components'
+import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'Layout',
@@ -24,6 +25,23 @@ export default defineComponent({
     Sidebar,
     Navbar,
     RightPanel
+  },
+  setup() {
+    const store = useStore()
+    const sidebar = computed(() => store.state.app.sidebar)
+    const device = computed(() => store.state.app.device)
+    const classObj = computed(() => {
+      return {
+        'hide-sidebar': !sidebar.value.opened,
+        'open-sidebar': sidebar.value.opened,
+        'without-animation': sidebar.value.withoutAnimation,
+        'mobile': device.value === 'mobile'
+      }
+    })
+
+    return {
+      classObj
+    }
   }
 })
 </script>
@@ -37,7 +55,7 @@ export default defineComponent({
   width: 100%;
   height: 100%;
 
-  .mobile.openSidebar {
+  .mobile.open-sidebar {
     position: fixed;
     top: 0;
   }
@@ -62,7 +80,7 @@ export default defineComponent({
   transition: width 0.28s;
 }
 
-.hideSidebar .fixed-header {
+.hide-sidebar .fixed-header {
   width: calc(100% - 54px);
 }
 

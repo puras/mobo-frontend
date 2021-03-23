@@ -4,23 +4,28 @@
  * @date 2021-03-11 17:20
  */
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
-import RootStateTypes from '@/store/interface'
+import { AllStateTypes, RootStateTypes } from '@/store/interface'
 import { InjectionKey } from 'vue'
+
+import app from './modules/app'
 
 export default createStore<RootStateTypes>({
   state: {
-    test: 'Hello typescript'
+    test: 'Hello typescript',
+    name: 'puras'
   },
   getters: {},
   mutations: {},
   actions: {},
-  modules: {}
+  modules: {
+    app
+  }
 })
 export const key: InjectionKey<Store<RootStateTypes>> = Symbol('vue-store')
 
-// export function useStore() {
-//   return baseUseStore(key)
-// }
+export function useStore<T = AllStateTypes>() {
+  return baseUseStore<T>(key)
+}
 
 // const modulesFiles = require.context('./modules', true, /\.ts$/)
 // const modules = modulesFiles.keys().reduce((modules, modulePath) => {

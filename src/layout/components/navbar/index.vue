@@ -1,6 +1,6 @@
 <template>
   <div class="navbar">
-    <hamburger id="hamburger-container" :is-active="showSideBar" class="hamburger-container" @toggleClick="toggleSideBar" />
+    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSidebar" />
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
     <div class="right-menu">
       <template v-if="device !== 'mobile'">
@@ -34,15 +34,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, computed } from 'vue'
 import Hamburger from '@/components/hamburger/index.vue'
 import Breadcrumb from '@/components/breadcrumb/index.vue'
 import HeaderSearch from '@/components/header-search/index.vue'
 import ScreenFull from '@/components/screenfull/index.vue'
 import ErrorLog from '@/components/error-log/index.vue'
-import { useStore } from 'vuex'
-import { key } from '@/store'
-// import { useStore } from '@/store'
+import { useStore } from '@/store'
 
 export default defineComponent({
   name: 'Navbar',
@@ -54,20 +52,18 @@ export default defineComponent({
     ErrorLog
   },
   setup() {
-    const showSideBar = ref(false)
-    const device = ref('pc')
+    const store = useStore()
 
-    const store = useStore(key)
-    console.log(store.state.test)
-
-    const toggleSideBar = () => {
-      showSideBar.value = !showSideBar.value
+    const sidebar = computed(() => store.state.app.sidebar)
+    const device = computed(() => store.state.app.device)
+    const toggleSidebar = () => {
+      store.dispatch('app/toggleSidebar')
     }
 
     return {
-      showSideBar,
-      toggleSideBar,
-      device
+      sidebar,
+      device,
+      toggleSidebar
     }
   }
 })
